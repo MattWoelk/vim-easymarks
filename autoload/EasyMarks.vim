@@ -1,17 +1,17 @@
-" EasyMotion - Vim motions on speed!
+" EasyMarks - Vim marks, visualized!
 "
-" Author: Kim Silkebækken <kim.silkebaekken+vim@gmail.com>
-" Source repository: https://github.com/Lokaltog/vim-easymotion
+" Author: Matt Woelk
+" Source repository: https://github.com/MattWoelk/vim-easymarks
 
 " Default configuration functions {{{
-	function! EasyMotion#InitOptions(options) " {{{
+	function! EasyMarks#InitOptions(options) " {{{
 		for [key, value] in items(a:options)
-			if ! exists('g:EasyMotion_' . key)
-				exec 'let g:EasyMotion_' . key . ' = ' . string(value)
+			if ! exists('g:EasyMarks_' . key)
+				exec 'let g:EasyMarks_' . key . ' = ' . string(value)
 			endif
 		endfor
 	endfunction " }}}
-	function! EasyMotion#InitHL(group, colors) " {{{
+	function! EasyMarks#InitHL(group, colors) " {{{
 		let group_default = a:group . 'Default'
 
 		" Prepare highlighting variables
@@ -40,26 +40,26 @@
 		" No colors are defined for this group, link to defaults
 		execute printf('hi default link %s %s', a:group, group_default)
 	endfunction " }}}
-	function! EasyMotion#InitMappings(motions) "{{{
+	function! EasyMarks#InitMappings(motions) "{{{
 		for motion in keys(a:motions)
-			call EasyMotion#InitOptions({ 'mapping_' . motion : g:EasyMotion_leader_key . motion })
+			call EasyMarks#InitOptions({ 'mapping_' . motion : g:EasyMarks_leader_key . motion })
 		endfor
 
-		if g:EasyMotion_do_mapping
+		if g:EasyMarks_do_mapping
 			for [motion, fn] in items(a:motions)
-				if empty(g:EasyMotion_mapping_{motion})
+				if empty(g:EasyMarks_mapping_{motion})
 					continue
 				endif
 
-				silent exec 'nnoremap <silent> ' . g:EasyMotion_mapping_{motion} . '      :call EasyMotion#' . fn.name . '(0, ' . fn.dir . ')<CR>'
-				silent exec 'onoremap <silent> ' . g:EasyMotion_mapping_{motion} . '      :call EasyMotion#' . fn.name . '(0, ' . fn.dir . ')<CR>'
-				silent exec 'vnoremap <silent> ' . g:EasyMotion_mapping_{motion} . ' :<C-U>call EasyMotion#' . fn.name . '(1, ' . fn.dir . ')<CR>'
+				silent exec 'nnoremap <silent> ' . g:EasyMarks_mapping_{motion} . '      :call EasyMarks#' . fn.name . '(0, ' . fn.dir . ')<CR>'
+				silent exec 'onoremap <silent> ' . g:EasyMarks_mapping_{motion} . '      :call EasyMarks#' . fn.name . '(0, ' . fn.dir . ')<CR>'
+				silent exec 'vnoremap <silent> ' . g:EasyMarks_mapping_{motion} . ' :<C-U>call EasyMarks#' . fn.name . '(1, ' . fn.dir . ')<CR>'
 			endfor
 		endif
 	endfunction "}}}
 " }}}
 " Motion functions {{{
-	function! EasyMotion#F(visualmode, direction) " {{{
+	function! EasyMarks#F(visualmode, direction) " {{{
 		let char = s:GetSearchChar(a:visualmode)
 
 		if empty(char)
@@ -68,9 +68,9 @@
 
 		let re = '\C' . escape(char, '.$^~')
 
-		call s:EasyMotion(re, a:direction, a:visualmode ? visualmode() : '', mode(1))
+		call s:EasyMarks(re, a:direction, a:visualmode ? visualmode() : '', mode(1))
 	endfunction " }}}
-	function! EasyMotion#T(visualmode, direction) " {{{
+	function! EasyMarks#T(visualmode, direction) " {{{
 		let char = s:GetSearchChar(a:visualmode)
 
 		if empty(char)
@@ -83,30 +83,30 @@
 			let re = '\C.' . escape(char, '.$^~')
 		endif
 
-		call s:EasyMotion(re, a:direction, a:visualmode ? visualmode() : '', mode(1))
+		call s:EasyMarks(re, a:direction, a:visualmode ? visualmode() : '', mode(1))
 	endfunction " }}}
-	function! EasyMotion#WB(visualmode, direction) " {{{
-		call s:EasyMotion('\(\<.\|^$\)', a:direction, a:visualmode ? visualmode() : '', '')
+	function! EasyMarks#WB(visualmode, direction) " {{{
+		call s:EasyMarks('\(\<.\|^$\)', a:direction, a:visualmode ? visualmode() : '', '')
 	endfunction " }}}
-	function! EasyMotion#WBW(visualmode, direction) " {{{
-		call s:EasyMotion('\(\(^\|\s\)\@<=\S\|^$\)', a:direction, a:visualmode ? visualmode() : '', '')
+	function! EasyMarks#WBW(visualmode, direction) " {{{
+		call s:EasyMarks('\(\(^\|\s\)\@<=\S\|^$\)', a:direction, a:visualmode ? visualmode() : '', '')
 	endfunction " }}}
-	function! EasyMotion#E(visualmode, direction) " {{{
-		call s:EasyMotion('\(.\>\|^$\)', a:direction, a:visualmode ? visualmode() : '', mode(1))
+	function! EasyMarks#E(visualmode, direction) " {{{
+		call s:EasyMarks('\(.\>\|^$\)', a:direction, a:visualmode ? visualmode() : '', mode(1))
 	endfunction " }}}
-	function! EasyMotion#EW(visualmode, direction) " {{{
-		call s:EasyMotion('\(\S\(\s\|$\)\|^$\)', a:direction, a:visualmode ? visualmode() : '', mode(1))
+	function! EasyMarks#EW(visualmode, direction) " {{{
+		call s:EasyMarks('\(\S\(\s\|$\)\|^$\)', a:direction, a:visualmode ? visualmode() : '', mode(1))
 	endfunction " }}}
-	function! EasyMotion#JK(visualmode, direction) " {{{
-		call s:EasyMotion('^\(\w\|\s*\zs\|$\)', a:direction, a:visualmode ? visualmode() : '', '')
+	function! EasyMarks#JK(visualmode, direction) " {{{
+		call s:EasyMarks('^\(\w\|\s*\zs\|$\)', a:direction, a:visualmode ? visualmode() : '', '')
 	endfunction " }}}
-	function! EasyMotion#Search(visualmode, direction) " {{{
-		call s:EasyMotion(@/, a:direction, a:visualmode ? visualmode() : '', '')
+	function! EasyMarks#Search(visualmode, direction) " {{{
+		call s:EasyMarks(@/, a:direction, a:visualmode ? visualmode() : '', '')
 	endfunction " }}}
 " }}}
 " Helper functions {{{
 	function! s:Message(message) " {{{
-		echo 'EasyMotion: ' . a:message
+		echo 'EasyMarks: ' . a:message
 	endfunction " }}}
 	function! s:Prompt(message) " {{{
 		echohl Question
@@ -406,7 +406,7 @@
 			let lines_items = items(lines)
 		" }}}
 		" Highlight targets {{{
-			let target_hl_id = matchadd(g:EasyMotion_hl_group_target, join(hl_coords, '\|'), 1)
+			let target_hl_id = matchadd(g:EasyMarks_hl_group_target, join(hl_coords, '\|'), 1)
 		" }}}
 
 		try
@@ -454,7 +454,7 @@
 			return s:PromptUser(target)
 		endif
 	endfunction "}}}
-	function! s:EasyMotion(regexp, direction, visualmode, mode) " {{{
+	function! s:EasyMarks(regexp, direction, visualmode, mode) " {{{
 		let orig_pos = [line('.'), col('.')]
 		let targets = []
 
@@ -493,11 +493,11 @@
 				endif
 			" }}}
 
-			let GroupingFn = function('s:GroupingAlgorithm' . s:grouping_algorithms[g:EasyMotion_grouping])
-			let groups = GroupingFn(targets, split(g:EasyMotion_keys, '\zs'))
+			let GroupingFn = function('s:GroupingAlgorithm' . s:grouping_algorithms[g:EasyMarks_grouping])
+			let groups = GroupingFn(targets, split(g:EasyMarks_keys, '\zs'))
 
 			" Shade inactive source {{{
-				if g:EasyMotion_do_shade
+				if g:EasyMarks_do_shade
 					let shade_hl_pos = '\%' . orig_pos[0] . 'l\%'. orig_pos[1] .'c'
 
 					if a:direction == 1
@@ -508,7 +508,7 @@
 						let shade_hl_re = shade_hl_pos . '\_.*\%'. line('w$') .'l'
 					endif
 
-					let shade_hl_id = matchadd(g:EasyMotion_hl_group_shade, shade_hl_re, 0)
+					let shade_hl_id = matchadd(g:EasyMarks_hl_group_shade, shade_hl_re, 0)
 				endif
 			" }}}
 
@@ -562,7 +562,7 @@
 				call s:VarReset('&virtualedit')
 			" }}}
 			" Remove shading {{{
-				if g:EasyMotion_do_shade && exists('shade_hl_id')
+				if g:EasyMarks_do_shade && exists('shade_hl_id')
 					call matchdelete(shade_hl_id)
 				endif
 			" }}}
