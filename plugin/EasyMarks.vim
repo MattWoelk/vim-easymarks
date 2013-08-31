@@ -13,7 +13,7 @@
 " Default configuration {{{
 	" Default options {{{
 		call EasyMarks#InitOptions({
-		\   'leader_key'      : '<leader><leader>'
+		\   'leader_key'      : "'"
 		\ , 'keys'            : 'abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ'
 		\ , 'do_shade'        : 1
 		\ , 'do_mapping'      : 1
