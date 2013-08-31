@@ -11,6 +11,7 @@
 	let g:EasyMarks_loaded = 1
 " }}}
 " Default configuration {{{
+"TODO:"let s:all_marks = "abcdefghijklmnopqrstuvwxyz.'`^<>\""
 	" Default options {{{
 		call EasyMarks#InitOptions({
 		\   'leader_key'      : "'"

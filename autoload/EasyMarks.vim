@@ -106,7 +106,7 @@
 	function! EasyMarks#Jump(visualmode, direction) " {{{
 		" TODO: Make this jump to the mark which called it"
 		echo a:direction
-		""call s:EasyMarks(@/, a:direction, a:visualmode ? visualmode() : '', '')
+		call s:EasyMarks(@/, a:direction, a:visualmode ? visualmode() : '', '')
 	endfunction " }}}
 " }}}
 " Helper functions {{{
@@ -495,6 +495,11 @@
 	function! s:EasyMarks(regexp, direction, visualmode, mode) " {{{
 		let orig_pos = [line('.'), col('.')]
 		let targets = []
+		echo a:direction
+
+		" TODO: [buffer, line_number, column_number, ignore]"
+		echo getpos("'" . a:direction)
+		throw a:direction
 
 		try
 			" Reset properties {{{
@@ -511,6 +516,9 @@
 
 				while 1
 					let pos = searchpos(a:regexp, search_direction, search_stopline)
+					" TODO: set pos to the location of the mark"
+					echo a:direction
+					echo getpos(a:direction)
 
 					" Reached end of search range
 					if pos == [0, 0]
