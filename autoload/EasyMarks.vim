@@ -59,6 +59,7 @@
 	endfunction "}}}
 " }}}
 " Motion functions {{{
+" TODO: make a new one of these for JUMP_TO_MARK based on EasyMarks#Search
 	function! EasyMarks#F(visualmode, direction) " {{{
 		let char = s:GetSearchChar(a:visualmode)
 
@@ -527,6 +528,7 @@
 			" }}}
 
 			let GroupingFn = function('s:GroupingAlgorithm' . s:grouping_algorithms[g:EasyMarks_grouping])
+			" Here is where MarkGenerator is called"
 			let groups = GroupingFn(targets, split(g:EasyMarks_keys, '\zs'))
 
 			" Shade inactive source {{{

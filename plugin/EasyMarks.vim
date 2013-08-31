@@ -49,6 +49,7 @@
 		" }}}
 	" }}}
 	" Default key mapping {{{
+	" TODO: change all of these to 'a' : { 'name': 'JUMP_TO_MARK'}"
 		call EasyMarks#InitMappings({
 		\   'f' : { 'name': 'F'  , 'dir': 0 }
 		\ , 'F' : { 'name': 'F'  , 'dir': 1 }
@@ -69,5 +70,8 @@
 		\ })
 	" }}}
 " }}}
+
+" print the word 'ls' to the screen
+":execute "echo" "'ls'"
 
 " vim: fdm=marker:noet:ts=4:sw=4:sts=4
