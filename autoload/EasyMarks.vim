@@ -180,6 +180,7 @@
 	let s:grouping_algorithms = {
 	\   1: 'SCTree'
 	\ , 2: 'Original'
+	\ , 3: 'MarkGenerator'
 	\ }
 	" Single-key/closest target priority tree {{{
 		" This algorithm tries to assign one-key jumps to all the targets closest to the cursor.
@@ -274,6 +275,38 @@
 	" }}}
 	" Original {{{
 		function! s:GroupingAlgorithmOriginal(targets, keys)
+			" Split targets into groups (1 level)
+			let targets_len = len(a:targets)
+			let keys_len = len(a:keys)
+
+			let groups = {}
+
+			let i = 0
+			let root_group = 0
+			try
+				while root_group < targets_len
+					let groups[a:keys[root_group]] = {}
+
+					for key in a:keys
+						let groups[a:keys[root_group]][key] = a:targets[i]
+
+						let i += 1
+					endfor
+
+					let root_group += 1
+				endwhile
+			catch | endtry
+
+			" Flatten the group array
+			if len(groups) == 1
+				let groups = groups[a:keys[0]]
+			endif
+
+			return groups
+		endfunction
+	" }}}
+	" MarkGenerator {{{
+		function! s:GroupingAlgorithmMarkGenerator(targets, keys)
 			" Split targets into groups (1 level)
 			let targets_len = len(a:targets)
 			let keys_len = len(a:keys)

@@ -17,7 +17,7 @@
 		\ , 'keys'            : 'abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ'
 		\ , 'do_shade'        : 1
 		\ , 'do_mapping'      : 1
-		\ , 'grouping'        : 1
+		\ , 'grouping'        : 3
 		\
 		\ , 'hl_group_target' : 'EasyMarksTarget'
 		\ , 'hl_group_shade'  : 'EasyMarksShade'
