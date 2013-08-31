@@ -59,7 +59,6 @@
 	endfunction "}}}
 " }}}
 " Motion functions {{{
-" TODO: make a new one of these for JUMP_TO_MARK based on EasyMarks#Search
 	function! EasyMarks#F(visualmode, direction) " {{{
 		let char = s:GetSearchChar(a:visualmode)
 
@@ -103,6 +102,11 @@
 	endfunction " }}}
 	function! EasyMarks#Search(visualmode, direction) " {{{
 		call s:EasyMarks(@/, a:direction, a:visualmode ? visualmode() : '', '')
+	endfunction " }}}
+	function! EasyMarks#Jump(visualmode, direction) " {{{
+		" TODO: Make this jump to the mark which called it"
+		echo a:direction
+		""call s:EasyMarks(@/, a:direction, a:visualmode ? visualmode() : '', '')
 	endfunction " }}}
 " }}}
 " Helper functions {{{

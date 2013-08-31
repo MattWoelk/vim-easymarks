@@ -49,7 +49,7 @@
 		" }}}
 	" }}}
 	" Default key mapping {{{
-	" TODO: change all of these to 'a' : { 'name': 'JUMP_TO_MARK'}"
+	" TODO: change all of these to 'a' : { 'name': 'Jump', 'dir': "'a'"}"
 		call EasyMarks#InitMappings({
 		\   'f' : { 'name': 'F'  , 'dir': 0 }
 		\ , 'F' : { 'name': 'F'  , 'dir': 1 }
@@ -67,6 +67,7 @@
 		\ , 'k' : { 'name': 'JK' , 'dir': 1 }
 		\ , 'n' : { 'name': 'Search' , 'dir': 0 }
 		\ , 'N' : { 'name': 'Search' , 'dir': 1 }
+		\ , 'a' : { 'name': 'Jump' , 'dir': "'a'" }
 		\ })
 	" }}}
 " }}}
