@@ -53,9 +53,9 @@ let s:all_marks = "abcdefghijklmnopqrstuvwxyz.'`^<>\""
 					continue
 				endif
 
-				silent exec 'nnoremap <silent> ' . g:EasyMarks_mapping_{motion} . '      :call EasyMarks#' . fn.name . '(0, ' . fn.dir . ')<CR>'
-				silent exec 'onoremap <silent> ' . g:EasyMarks_mapping_{motion} . '      :call EasyMarks#' . fn.name . '(0, ' . fn.dir . ')<CR>'
-				silent exec 'vnoremap <silent> ' . g:EasyMarks_mapping_{motion} . ' :<C-U>call EasyMarks#' . fn.name . '(1, ' . fn.dir . ')<CR>'
+				silent exec 'nnoremap <silent> ' . "'" . '      :call EasyMarks#' . "Jump" . '(0, ' . fn.dir . ')<CR>'
+				silent exec 'onoremap <silent> ' . "'" . '      :call EasyMarks#' . "Jump" . '(0, ' . fn.dir . ')<CR>'
+				silent exec 'vnoremap <silent> ' . "'" . ' :<C-U>call EasyMarks#' . "Jump" . '(1, ' . fn.dir . ')<CR>'
 			endfor
 		endif
 	endfunction "}}}
