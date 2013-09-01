@@ -52,23 +52,7 @@
 	" Default key mapping {{{
 	" TODO: change all of these to 'a' : { 'name': 'Jump', 'dir': "'a'"}"
 		call EasyMarks#InitMappings({
-		\   'f' : { 'name': 'F'  , 'dir': 0 }
-		\ , 'F' : { 'name': 'F'  , 'dir': 1 }
-		\ , 't' : { 'name': 'T'  , 'dir': 0 }
-		\ , 'T' : { 'name': 'T'  , 'dir': 1 }
-		\ , 'w' : { 'name': 'WB' , 'dir': 0 }
-		\ , 'W' : { 'name': 'WBW', 'dir': 0 }
-		\ , 'b' : { 'name': 'WB' , 'dir': 1 }
-		\ , 'B' : { 'name': 'WBW', 'dir': 1 }
-		\ , 'e' : { 'name': 'E'  , 'dir': 0 }
-		\ , 'E' : { 'name': 'EW' , 'dir': 0 }
-		\ , 'ge': { 'name': 'E'  , 'dir': 1 }
-		\ , 'gE': { 'name': 'EW' , 'dir': 1 }
-		\ , 'j' : { 'name': 'JK' , 'dir': 0 }
-		\ , 'k' : { 'name': 'JK' , 'dir': 1 }
-		\ , 'n' : { 'name': 'Search' , 'dir': 0 }
-		\ , 'N' : { 'name': 'Search' , 'dir': 1 }
-		\ , 'a' : { 'name': 'Jump' , 'dir': "'a'" }
+		\   'a' : { 'name': 'Jump' , 'dir': "'a'" }
 		\ })
 	" }}}
 " }}}
