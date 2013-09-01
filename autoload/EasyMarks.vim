@@ -495,11 +495,11 @@
 	function! s:EasyMarks(regexp, direction, visualmode, mode) " {{{
 		let orig_pos = [line('.'), col('.')]
 		let targets = []
-		echo a:direction
+		"echo a:direction
 
 		" TODO: [buffer, line_number, column_number, ignore]"
-		echo getpos("'" . a:direction)
-		throw a:direction
+		"echo getpos("'" . a:direction)
+		""throw a:direction
 
 		try
 			" Reset properties {{{
@@ -514,24 +514,26 @@
 				let search_direction = (a:direction == 1 ? 'b' : '')
 				let search_stopline = line(a:direction == 1 ? 'w0' : 'w$')
 
-				while 1
-					let pos = searchpos(a:regexp, search_direction, search_stopline)
+				""while 1
+					"let pos = searchpos(a:regexp, search_direction, search_stopline)
 					" TODO: set pos to the location of the mark"
-					echo a:direction
-					echo getpos(a:direction)
+					"echo a:direction
+					""echo getpos("'" . a:direction)
+					""let pos = getpos("'" . a:direction)
+					let pos = [getpos("'" . a:direction)[1], getpos("'" . a:direction)[2]]
 
 					" Reached end of search range
-					if pos == [0, 0]
-						break
-					endif
+					"if pos == [0, 0]
+						"break
+					"endif
 
 					" Skip folded lines
-					if foldclosed(pos[0]) != -1
-						continue
-					endif
+					"if foldclosed(pos[0]) != -1
+						"continue
+					"endif
 
 					call add(targets, pos)
-				endwhile
+				"endwhile
 
 				let targets_len = len(targets)
 				if targets_len == 0
